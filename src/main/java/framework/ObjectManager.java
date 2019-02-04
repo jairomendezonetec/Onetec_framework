@@ -141,6 +141,11 @@ public class ObjectManager extends DriverManager {
 		return null;
 	}
 
+	public static String[] replaceXpath(String[] element, String change) {
+		element[1] = element[1].replace("%%", change);
+		return element;
+	}
+	
 	public static boolean isObjectPresent(String[] elementToFound, long sec) throws ExecutionException {
 
 		if (elementToFound != null) {

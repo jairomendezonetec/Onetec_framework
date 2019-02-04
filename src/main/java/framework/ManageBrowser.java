@@ -23,7 +23,7 @@ public class ManageBrowser extends DriverManager {
 	final private static long TIME_OUT = 10;
   
 	/**
-	 * Este metodo realiza la acción de navegar a la url que se le pasa por
+	 * Este metodo realiza la acci�n de navegar a la url que se le pasa por
 	 * parametro
 	 * 
 	 * @author jairo
@@ -45,7 +45,7 @@ public class ManageBrowser extends DriverManager {
 	}
 
 	/**
-	 * Pulsar el botón Forward del navegador.
+	 * Pulsar el bot�n Forward del navegador.
 	 * 
 	 * @author Miguel
 	 */
@@ -55,7 +55,7 @@ public class ManageBrowser extends DriverManager {
 	}
 
 	/**
-	 * Pulsar el botón Backward en el navegador.
+	 * Pulsar el bot�n Backward en el navegador.
 	 * 
 	 * @author Miguel
 	 */
@@ -91,6 +91,7 @@ public class ManageBrowser extends DriverManager {
 	 * @author Miguel
 	 */
 	public static void maximize() {
+		logger.debug("Maximizing screen...");
 		driver.manage().window().maximize();
 	}
 
@@ -104,7 +105,7 @@ public class ManageBrowser extends DriverManager {
 	}
 
 	/**
-	 * Establece el tamaño de la ventana del navegador.
+	 * Establece el tama�o de la ventana del navegador.
 	 * 
 	 * @param Anchura.
 	 * @param Altura.
@@ -116,7 +117,7 @@ public class ManageBrowser extends DriverManager {
 	}
 
 	/**
-	 * Establece la posición que debe tener la ventana en la pantalla.
+	 * Establece la posici�n que debe tener la ventana en la pantalla.
 	 * 
 	 * @param Horizontal.
 	 * @param Vertical.
@@ -128,9 +129,9 @@ public class ManageBrowser extends DriverManager {
 	}
 
 	/**
-	 * Obtiene el tamaño de la ventana del navegador en la pantalla.
+	 * Obtiene el tama�o de la ventana del navegador en la pantalla.
 	 * 
-	 * @return Objeto Dimension con el tamaño de la pantalla.
+	 * @return Objeto Dimension con el tama�o de la pantalla.
 	 * @author Miguel
 	 */
 	public static Dimension getSize() {
@@ -161,9 +162,9 @@ public class ManageBrowser extends DriverManager {
 	}
 
 	/**
-	 * Hace un cambio de pestaña en el navegador
+	 * Hace un cambio de pesta�a en el navegador
 	 * 
-	 * @return Devuelve el nombre identificativo de la pestaña objetivo a la que se
+	 * @return Devuelve el nombre identificativo de la pesta�a objetivo a la que se
 	 *         va.
 	 * @author Jairo
 	 */
@@ -172,12 +173,12 @@ public class ManageBrowser extends DriverManager {
 	}
 
 	/**
-	 * Cambia a de una pestaña a otra en el navegador, recibiendo qué pestañas debe
+	 * Cambia a de una pesta�a a otra en el navegador, recibiendo qué pesta�as debe
 	 * ignorar en el cambio.
 	 * 
 	 * @param toIgnore: Array de String con los nombres identificadores de cada
-	 *        pestaña a ignorar en el cambio.
-	 * @return Devuelve el nombre identificativo de la pestaña objetivo a la que se
+	 *        pesta�a a ignorar en el cambio.
+	 * @return Devuelve el nombre identificativo de la pesta�a objetivo a la que se
 	 *         va.
 	 * @author Jairo
 	 */
@@ -215,9 +216,9 @@ public class ManageBrowser extends DriverManager {
 	}
 
 	/**
-	 * Cambia a una pestaña en concreto en el navegador.
+	 * Cambia a una pesta�a en concreto en el navegador.
 	 * 
-	 * @param String con el nombre identificador de la pestaña objetivo.
+	 * @param String con el nombre identificador de la pesta�a objetivo.
 	 * @author Jairo
 	 */
 	public static void switchToWindow(String targetWindow) {
