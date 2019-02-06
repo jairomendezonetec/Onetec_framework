@@ -30,7 +30,7 @@ public class Logger {
 	 * Logs para los mensajes de información
 	 * @param mensaje para el log
 	 */
-	public void info(int level, String message){
+	public void info(String message){
 		horaActual = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 		System.out.println(prefixInfo + ("["+ horaActual +"] " + sContext) + message);
 	}
