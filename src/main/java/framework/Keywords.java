@@ -32,7 +32,7 @@ public class Keywords extends DriverManager {
 	}
 
 	/**
-	 * Este metodo realiza la acci√≥n de pulsar sobre un elemento de la pantalla
+	 * Este metodo realiza la acciÛn de pulsar sobre un elemento de la pantalla
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
@@ -62,7 +62,7 @@ public class Keywords extends DriverManager {
 	}
 
 	/**
-	 * Este metodo realiza la acci√≥n de escribir sobre un elemento de la pantalla un
+	 * Este metodo realiza la acciÛn de escribir sobre un elemento de la pantalla un
 	 * valor pasado por parametro
 	 * 
 	 * @author jairo
@@ -241,7 +241,7 @@ public class Keywords extends DriverManager {
 	}
 
 	/**
-	 * Este metodo seleccionar√° una opci√≥n de un selector desplegable
+	 * Este metodo seleccionar· una opciÛn de un selector desplegable
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
@@ -283,10 +283,10 @@ public class Keywords extends DriverManager {
 	}
 
 	/**
-	 * Parar la ejecuci√≥n los segundos que se determinen. Ojo: se usa la clase
+	 * Parar la ejecuciÛn los segundos que se determinen. Ojo: se usa la clase
 	 * Thread que puede lanzar excepciones.
 	 * 
-	 * @param El tiempo que se quiera parar la ejecuci√≥n en segundos.
+	 * @param El tiempo que se quiera parar la ejecuciÛn en segundos.
 	 * @author Miguel
 	 */
 	public static void waitSec(long sec) {
@@ -298,13 +298,13 @@ public class Keywords extends DriverManager {
 	}
 
 	/**
-	 * Activa una espera expl√≠cita hasta que el elemento que se le pasa est√°
-	 * presente en la p√°gina.
+	 * Activa una espera explÌcita hasta que el elemento que se le pasa est·
+	 * presente en la p·gina.
 	 * 
-	 * @param Es un array que representa un atributo est√°tico de la clase
+	 * @param Es un array que representa un atributo est·tico de la clase
 	 *           PageObject.
 	 * @param El tiempo en segundos que dura la espera.
-	 * @return El elemento por el que se est√° esperando a que est√© presente.
+	 * @return El elemento por el que se est· esperando a que estÈ presente.
 	 * @author Miguel
 	 */
 
@@ -316,13 +316,13 @@ public class Keywords extends DriverManager {
 	}
 
 	/**
-	 * Activa una espera expl√≠cita hasta que el elemento que se le pasa sea clicable
-	 * en la p√°gina.
+	 * Activa una espera explÌcita hasta que el elemento que se le pasa sea clicable
+	 * en la p·gina.
 	 * 
-	 * @param Es un array que representa un atributo est√°tico de la clase
+	 * @param Es un array que representa un atributo est·tico de la clase
 	 *           PageObject.
 	 * @param El tiempo en segundos que dura la espera.
-	 * @return El elemento por el que se est√° esperando a que est√© presente.
+	 * @return El elemento por el que se est· esperando a que estÈ presente.
 	 * @author Miguel
 	 */
 	public static WebElement waitToBeClickable(String[] arrayElement, long sec) {
@@ -334,13 +334,13 @@ public class Keywords extends DriverManager {
 	}
 
 	/**
-	 * Activa una espera expl√≠cita hasta que el elemento que se le pasa sea visible
-	 * en la p√°gina.
+	 * Activa una espera explÌcita hasta que el elemento que se le pasa sea visible
+	 * en la p·gina.
 	 * 
-	 * @param Es un array que representa un atributo est√°tico de la clase
+	 * @param Es un array que representa un atributo est·tico de la clase
 	 *           PageObject.
 	 * @param El tiempo en segundos que dura la espera.
-	 * @return El elemento por el que se est√° esperando a que est√© presente.
+	 * @return El elemento por el que se est· esperando a que estÈ presente.
 	 * @author Miguel
 	 */
 	public static WebElement waitToBeVisible(String[] arrayElement, long sec) {
@@ -352,10 +352,10 @@ public class Keywords extends DriverManager {
 	}
 
 	/**
-	 * Activa una espera expl√≠cita hasta que el elemento que se le pasa sea se
-	 * desvanezca en la p√°gina.
+	 * Activa una espera explÌcita hasta que el elemento que se le pasa sea se
+	 * desvanezca en la p·gina.
 	 * 
-	 * @param Es un array que representa un atributo est√°tico de la clase
+	 * @param Es un array que representa un atributo est·tico de la clase
 	 *           PageObject.
 	 * @param El tiempo en segundos que dura la espera.
 	 * @author Miguel
@@ -367,7 +367,7 @@ public class Keywords extends DriverManager {
 	}
 
 	/**
-	 * Este metodo almacena un dato para poder consultarlo cuando se necesite dentro de la ejecucci√≥n
+	 * Este metodo almacena un dato para poder consultarlo cuando se necesite dentro de la ejecucciÛn
 	 * 
 	 * @author jairo
 	 * @param key Clave para localizar el dato
@@ -391,7 +391,7 @@ public class Keywords extends DriverManager {
 	}
 	
 	/**
-	 * M√©todo que poen a esperar al navegador hasta que la p√°gina se carga por completo y JavaScript notifica que as√≠ es, efectivamente.
+	 * MÈtodo que poen a esperar al navegador hasta que la p·gina se carga por completo y JavaScript notifica que asÌ es, efectivamente.
 	 * 
 	 * @author Miguel
 	 */
