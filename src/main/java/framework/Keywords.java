@@ -49,7 +49,7 @@ public class Keywords extends DriverManager {
 				if (webElement.isDisplayed()) {
 					webElement.click();
 				} else
-					logger.error("Element is not displayed.");
+					throw new Exception("Element is not interactable.");
 			} catch (Exception e) {
 				logger.error("An unexpected error occurred while trying to click: " + e.getMessage());
 				e.printStackTrace();
@@ -236,7 +236,7 @@ public class Keywords extends DriverManager {
 	public static void verify(String[] arrayElement, int timeOut) throws Exception {
 		logger.debug("Verifying the object: '" + Arrays.toString(arrayElement) + "'");
 		if (!exists(arrayElement, timeOut))
-			throw new Exception("The element does not exist: " + Arrays.toString(arrayElement));
+			throw new Exception("The element does not exist: " + Arrays.toString(arrayElement)+" in "+ timeOut + "s.");
 	}
 
 	/**

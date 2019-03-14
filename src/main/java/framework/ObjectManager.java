@@ -148,10 +148,13 @@ public class ObjectManager extends DriverManager {
 		return null;
 	}
 
-	public static String[] replaceXpath(String[] element, String change) {
+	public static String[] replaceXpath(String[] element, String... changes) {
 		String type = element[0];
 		String selector = element[1];
-		selector = selector.replace("%%", change);
+		
+		for (int i = 1; i-1 < changes.length; i++) {
+			selector = selector.replace("$var"+i, changes[i-1]);
+		}
 		return new String[]{type, selector} ;
 	}
 
