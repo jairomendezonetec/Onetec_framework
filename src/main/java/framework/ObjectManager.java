@@ -37,6 +37,7 @@ public class ObjectManager extends DriverManager {
 			case "class":
 				return driver.findElement(By.className(value));
 			case "contains":
+				logger.debug("Generating xpath : '//*[contains(@" + keyContains + ",'" + value + "')]'");
 				return driver.findElement(By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]"));
 			case "name":
 				return driver.findElement(By.name(value));
@@ -45,10 +46,12 @@ public class ObjectManager extends DriverManager {
 			case "tag":
 				return driver.findElement(By.tagName(value));
 			case "text":
+				logger.debug("Generating xpath : '//*[contains(text(),'" + value + "')]'");
 				return driver.findElement(By.xpath("//*[contains(text(),'" + value + "')]"));
 			case "linkText":
 				return driver.findElement(By.linkText(value));
 			default:
+				logger.debug("Generating xpath : '//*[@" + elementToFound[0] + "='" + value + "']'");
 				return driver.findElement(By.xpath("//*[@" + elementToFound[0] + "='" + value + "']"));
 			}
 		} catch (NoSuchElementException e) { // TODO
@@ -77,6 +80,7 @@ public class ObjectManager extends DriverManager {
 			case "class":
 				return driver.findElements(By.className(value));
 			case "contains":
+				logger.debug("Generating xpath : '//*[contains(@" + keyContains + ",'" + value + "')]'");
 				return driver.findElements(By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]"));
 			case "name":
 				return driver.findElements(By.name(value));
@@ -85,10 +89,12 @@ public class ObjectManager extends DriverManager {
 			case "tag":
 				return driver.findElements(By.tagName(value));
 			case "text":
+				logger.debug("Generating xpath : '//*[contains(text(),'" + value + "')]'");
 				return driver.findElements(By.xpath("//*[contains(text(),'" + value + "')]"));
 			case "linkText":
 				return driver.findElements(By.linkText(value));
 			default:
+				logger.debug("Generating xpath : '//*[@" + elementToFound[0] + "='" + value + "']'");
 				return driver.findElements(By.xpath("//*[@" + elementToFound[0] + "='" + value + "']"));
 			}
 		} catch (NoSuchElementException e) {// TODO
@@ -117,6 +123,7 @@ public class ObjectManager extends DriverManager {
 			case "class":
 				return By.className(value);
 			case "contains":
+				logger.debug("Generating xpath : '//*[contains(@" + keyContains + ",'" + value + "')]'");
 				return By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]");
 			case "name":
 				return By.name(value);
@@ -125,10 +132,12 @@ public class ObjectManager extends DriverManager {
 			case "tag":
 				return By.tagName(value);
 			case "text":
+				logger.debug("Generating xpath : '//*[contains(text(),'" + value + "')]'");
 				return By.xpath("//*[contains(text(),'" + value + "')]");
 			case "linkText":
 				return By.linkText(value);
 			default:
+				logger.debug("Generating xpath : '//*[@" + elementToFound[0] + "='" + value + "']'");
 				return By.xpath("//*[@" + elementToFound[0] + "='" + value + "']");
 			}
 		} catch (NoSuchElementException e) {// TODO

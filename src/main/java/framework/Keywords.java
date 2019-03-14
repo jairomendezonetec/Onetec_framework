@@ -36,7 +36,7 @@ public class Keywords extends DriverManager {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
+	 *                     contiene el tag y el valor de la búsqueda del elemento.
 	 * @throws Exception
 	 */
 	public static void pushOn(String[] arrayElement) throws Exception {
@@ -67,7 +67,7 @@ public class Keywords extends DriverManager {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
+	 *                     contiene el tag y el valor de la búsqueda del elemento.
 	 * @param text         Contiene el texto que debe ser introducido
 	 * @throws Exception
 	 */
@@ -99,7 +99,7 @@ public class Keywords extends DriverManager {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
+	 *                     contiene el tag y el valor de la búsqueda del elemento.
 	 * @param propName     Contiene la propiedad que debe ser obtenida
 	 * @throws Exception
 	 */
@@ -134,7 +134,7 @@ public class Keywords extends DriverManager {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
+	 *                     contiene el tag y el valor de la búsqueda del elemento.
 	 * @param text         Contiene el texto a ser buscado en el elemento
 	 * @throws Exception
 	 */
@@ -149,9 +149,9 @@ public class Keywords extends DriverManager {
 				String elementText = webElement.getText();
 				if (!text.equals(elementText)) {
 					logger.error("The given text is not equals in the element");
-					throw new Exception("Text is not found"); // TODO Cambiar por excepciones controladas
+					throw new Exception("Text '"+ text +"' is not found"); // TODO Cambiar por excepciones controladas
 				} else
-					logger.debug("Text encontrado correctamente");
+					logger.debug("Text '"+ text+"' encontrado correctamente");
 			} else {
 				logger.debug("The given text is empty or null.");
 				throw new Exception("Text is empty or null"); // TODO Cambiar por excepciones controladas
@@ -168,7 +168,7 @@ public class Keywords extends DriverManager {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
+	 *                     contiene el tag y el valor de la búsqueda del elemento.
 	 * @param text         Contiene el texto a ser buscado en el elemento
 	 * @throws Exception
 	 */
@@ -202,7 +202,7 @@ public class Keywords extends DriverManager {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
+	 *                     contiene el tag y el valor de la búsqueda del elemento.
 	 * @param timeOut      Tiempo de espera hasta encontrar el elemento
 	 * @throws Exception
 	 */
@@ -215,7 +215,6 @@ public class Keywords extends DriverManager {
 				return true;
 			} else {
 				logger.error(Arrays.toString(arrayElement) + " does not exist on screen");
-
 				return false;
 			}
 		} catch (Exception e) {
@@ -230,7 +229,7 @@ public class Keywords extends DriverManager {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
+	 *                     contiene el tag y el valor de la búsqueda del elemento.
 	 * @param timeOut      Tiempo de espera hasta encontrar el elemento
 	 * @throws Exception
 	 */
@@ -245,7 +244,7 @@ public class Keywords extends DriverManager {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
+	 *                     contiene el tag y el valor de la búsqueda del elemento.
 	 * @param timeOut      Tiempo de espera hasta encontrar el elemento
 	 * @throws Exception
 	 */
@@ -287,9 +286,10 @@ public class Keywords extends DriverManager {
 	 * Thread que puede lanzar excepciones.
 	 * 
 	 * @param El tiempo que se quiera parar la ejecución en segundos.
-	 * @author Miguel
+	 * @author Jairo
 	 */
 	public static void waitSec(long sec) {
+		logger.debug("Waiting "+ sec + "s...");
 		try {
 			Thread.sleep(sec * 1000);
 		} catch (InterruptedException e) {
@@ -305,11 +305,11 @@ public class Keywords extends DriverManager {
 	 *           PageObject.
 	 * @param El tiempo en segundos que dura la espera.
 	 * @return El elemento por el que se está esperando a que esté presente.
-	 * @author Miguel
+	 * @author Jairo
 	 */
 
 	public static WebElement waitToBePresent(String[] arrayElement, long sec) {
-		logger.debug("Waiting to be present... : '" + Arrays.toString(arrayElement) + "'");
+		logger.debug("Waiting to be present... : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
 		WebDriverWait wait = new WebDriverWait(driver, sec);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ObjectManager.getByObject(arrayElement)));
 		return ObjectManager.getObject(arrayElement);
@@ -323,14 +323,13 @@ public class Keywords extends DriverManager {
 	 *           PageObject.
 	 * @param El tiempo en segundos que dura la espera.
 	 * @return El elemento por el que se está esperando a que esté presente.
-	 * @author Miguel
+	 * @author Jairo
 	 */
 	public static WebElement waitToBeClickable(String[] arrayElement, long sec) {
-		logger.debug("Waiting to be clickable... : '" + Arrays.toString(arrayElement) + "'");
-		WebElement webElement = ObjectManager.getObject(arrayElement);
+		logger.debug("Waiting to be clickable : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
 		WebDriverWait wait = new WebDriverWait(driver, sec);
-		wait.until(ExpectedConditions.elementToBeClickable(webElement));
-		return webElement;
+		wait.until(ExpectedConditions.elementToBeClickable(ObjectManager.getByObject(arrayElement)));
+		return ObjectManager.getObject(arrayElement);
 	}
 
 	/**
@@ -341,14 +340,13 @@ public class Keywords extends DriverManager {
 	 *           PageObject.
 	 * @param El tiempo en segundos que dura la espera.
 	 * @return El elemento por el que se está esperando a que esté presente.
-	 * @author Miguel
+	 * @author Jairo
 	 */
 	public static WebElement waitToBeVisible(String[] arrayElement, long sec) {
-		logger.debug("Waiting to be visible... : '" + Arrays.toString(arrayElement) + "'");
-		WebElement webElement = ObjectManager.getObject(arrayElement);
+		logger.debug("Waiting to be visible... : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
 		WebDriverWait wait = new WebDriverWait(driver, sec);
-		wait.until(ExpectedConditions.visibilityOf(webElement));
-		return webElement;
+		wait.until(ExpectedConditions.visibilityOf(ObjectManager.getObject(arrayElement)));
+		return ObjectManager.getObject(arrayElement);
 	}
 
 	/**
@@ -358,11 +356,11 @@ public class Keywords extends DriverManager {
 	 * @param Es un array que representa un atributo estático de la clase
 	 *           PageObject.
 	 * @param El tiempo en segundos que dura la espera.
-	 * @author Miguel
+	 * @author Jairo
 	 * @throws ExecutionException
 	 */
 	public static void waitToVanish(String[] arrayElement, long sec) throws ExecutionException { // TODO probar
-		logger.debug("Waiting to vanish ... : '" + Arrays.toString(arrayElement) + "'");
+		logger.debug("Waiting to vanish ... : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
 		ObjectManager.isObjectNotPresent(arrayElement, sec);
 	}
 
@@ -393,7 +391,7 @@ public class Keywords extends DriverManager {
 	/**
 	 * Método que poen a esperar al navegador hasta que la página se carga por completo y JavaScript notifica que así es, efectivamente.
 	 * 
-	 * @author Miguel
+	 * @author Jairo
 	 */
 	public static void waitToLoadPage() {
 		logger.debug("Waiting to load full page...");
