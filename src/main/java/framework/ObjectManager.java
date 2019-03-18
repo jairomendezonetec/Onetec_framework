@@ -37,8 +37,13 @@ public class ObjectManager extends DriverManager {
 			case "class":
 				return driver.findElement(By.className(value));
 			case "contains":
-				logger.debug("Generating xpath : '//*[contains(@" + keyContains + ",'" + value + "')]'");
-				return driver.findElement(By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]"));
+				if (keyContains.contains("text")) {
+					logger.debug("Generating xpath : '//*[contains(text(),'" + value + "')]'");
+					return driver.findElement(By.xpath("//*[contains(text(),'" + value + "')]"));
+				} else {
+					logger.debug("Generating xpath : '//*[contains(@" + keyContains + ",'" + value + "')]'");
+					return driver.findElement(By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]"));
+				}
 			case "name":
 				return driver.findElement(By.name(value));
 			case "xpath":
@@ -46,8 +51,8 @@ public class ObjectManager extends DriverManager {
 			case "tag":
 				return driver.findElement(By.tagName(value));
 			case "text":
-				logger.debug("Generating xpath : '//*[contains(text(),'" + value + "')]'");
-				return driver.findElement(By.xpath("//*[contains(text(),'" + value + "')]"));
+				logger.debug("Generating xpath : '//*[text()='" + value + "']'");
+				return driver.findElement(By.xpath("//*[text()='" + value + "']"));
 			case "linkText":
 				return driver.findElement(By.linkText(value));
 			default:
@@ -80,8 +85,14 @@ public class ObjectManager extends DriverManager {
 			case "class":
 				return driver.findElements(By.className(value));
 			case "contains":
-				logger.debug("Generating xpath : '//*[contains(@" + keyContains + ",'" + value + "')]'");
-				return driver.findElements(By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]"));
+				if (keyContains.contains("text")) {
+					logger.debug("Generating xpath : '//*[contains(text(),'" + value + "')]'");
+					return driver.findElements(By.xpath("//*[contains(text(),'" + value + "')]"));
+
+				} else {
+					logger.debug("Generating xpath : '//*[contains(@" + keyContains + ",'" + value + "')]'");
+					return driver.findElements(By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]"));
+				}
 			case "name":
 				return driver.findElements(By.name(value));
 			case "xpath":
@@ -89,8 +100,8 @@ public class ObjectManager extends DriverManager {
 			case "tag":
 				return driver.findElements(By.tagName(value));
 			case "text":
-				logger.debug("Generating xpath : '//*[contains(text(),'" + value + "')]'");
-				return driver.findElements(By.xpath("//*[contains(text(),'" + value + "')]"));
+				logger.debug("Generating xpath : '//*[text()='" + value + "']'");
+				return driver.findElements(By.xpath("//*[text()='" + value + "']"));
 			case "linkText":
 				return driver.findElements(By.linkText(value));
 			default:
@@ -116,6 +127,7 @@ public class ObjectManager extends DriverManager {
 			keyContains = elementToFound[0].substring(8);
 			attribute = "contains";
 		}
+
 		try {
 			switch (attribute) {
 			case "id":
@@ -123,8 +135,13 @@ public class ObjectManager extends DriverManager {
 			case "class":
 				return By.className(value);
 			case "contains":
-				logger.debug("Generating xpath : '//*[contains(@" + keyContains + ",'" + value + "')]'");
-				return By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]");
+				if (keyContains.contains("text")) {
+					logger.debug("Generating xpath : '//*[contains(text(),'" + value + "')]'");
+					return By.xpath("//*[contains(text(),'" + value + "')]");
+				} else {
+					logger.debug("Generating xpath : '//*[contains(@" + keyContains + ",'" + value + "')]'");
+					return By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]");
+				}
 			case "name":
 				return By.name(value);
 			case "xpath":
@@ -132,8 +149,8 @@ public class ObjectManager extends DriverManager {
 			case "tag":
 				return By.tagName(value);
 			case "text":
-				logger.debug("Generating xpath : '//*[contains(text(),'" + value + "')]'");
-				return By.xpath("//*[contains(text(),'" + value + "')]");
+				logger.debug("Generating xpath : '//*[text()='" + value + "']'");
+				return By.xpath("//*[text()='" + value + "']");
 			case "linkText":
 				return By.linkText(value);
 			default:
@@ -151,11 +168,11 @@ public class ObjectManager extends DriverManager {
 	public static String[] replaceXpath(String[] element, String... changes) {
 		String type = element[0];
 		String selector = element[1];
-		
-		for (int i = 1; i-1 < changes.length; i++) {
-			selector = selector.replace("$var"+i, changes[i-1]);
+
+		for (int i = 1; i - 1 < changes.length; i++) {
+			selector = selector.replace("$var" + i, changes[i - 1]);
 		}
-		return new String[]{type, selector} ;
+		return new String[] { type, selector };
 	}
 
 	public static boolean isObjectPresent(String[] elementToFound, long sec) throws ExecutionException {

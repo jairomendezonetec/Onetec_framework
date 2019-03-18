@@ -79,6 +79,7 @@ public class Keywords extends DriverManager {
 		if (webElement != null) {
 			try {
 				if (webElement.isDisplayed()) {
+					webElement.clear();
 					webElement.sendKeys(text);
 				} else
 					logger.error("Element is not displayed.");
