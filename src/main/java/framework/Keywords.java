@@ -16,7 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.Logger;
 
-public class Keywords extends DriverManager {
+public class Keywords{
 
 	final private static String CLASS_NAME = "Keywords";
 	private static Logger logger = new Logger(CLASS_NAME);
@@ -311,7 +311,7 @@ public class Keywords extends DriverManager {
 
 	public static WebElement waitToBePresent(String[] arrayElement, long sec) {
 		logger.debug("Waiting to be present... : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
-		WebDriverWait wait = new WebDriverWait(driver, sec);
+		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), sec);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ObjectManager.getByObject(arrayElement)));
 		return ObjectManager.getObject(arrayElement);
 	}
@@ -328,7 +328,7 @@ public class Keywords extends DriverManager {
 	 */
 	public static WebElement waitToBeClickable(String[] arrayElement, long sec) {
 		logger.debug("Waiting to be clickable : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
-		WebDriverWait wait = new WebDriverWait(driver, sec);
+		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), sec);
 		wait.until(ExpectedConditions.elementToBeClickable(ObjectManager.getByObject(arrayElement)));
 		return ObjectManager.getObject(arrayElement);
 	}
@@ -345,7 +345,7 @@ public class Keywords extends DriverManager {
 	 */
 	public static WebElement waitToBeVisible(String[] arrayElement, long sec) {
 		logger.debug("Waiting to be visible... : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
-		WebDriverWait wait = new WebDriverWait(driver, sec);
+		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), sec);
 		wait.until(ExpectedConditions.visibilityOf(ObjectManager.getObject(arrayElement)));
 		return ObjectManager.getObject(arrayElement);
 	}
@@ -402,7 +402,7 @@ public class Keywords extends DriverManager {
                         return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
                     }
                 };
-        WebDriverWait wait = new WebDriverWait(driver, LONG_TIME_OUT);
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), LONG_TIME_OUT);
         wait.until(pageLoadCondition);
     }
 

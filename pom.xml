@@ -1,53 +1,55 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>Onetec_Framework</groupId>
-  <artifactId>Onetec_Framework</artifactId>
-  <version>1.0.0</version>
-  <name>Onetec_Framework</name>
-  <description>Framework to automate tests in java</description>
-  
-    <build>
-    <plugins>
-       <plugin>
-	       <groupId>org.apache.maven.plugins</groupId>
-	       <artifactId>maven-assembly-plugin</artifactId>
-	       <version>2.4.1</version>
-	       <configuration>
-	          <descriptorRefs>
-	          	<descriptorRef>jar-with-dependencies</descriptorRef>
-	          </descriptorRefs>
-	       </configuration>
-	       <executions>
-	         <execution>
-	           <id>make-assembly</id>
-	           <phase>package</phase>
-	           <goals>
-	             <goal>single</goal>
-	           </goals>
-	         </execution>
-	       </executions>
-	</plugin>
-	
-	<plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>        
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>Onetec_Framework</groupId>
+	<artifactId>Onetec_Framework</artifactId>
+	<version>1.0.0</version>
+	<name>Onetec_Framework</name>
+	<description>Framework to automate tests in java</description>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<properties>
 		<java.version>1.8</java.version>
 		<junit.version>4.12</junit.version>
 		<cucumber.version>4.2.0</cucumber.version>
 		<maven.compiler.version>3.3</maven.compiler.version>
 	</properties>
-	
-  <dependencies>
+
+	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -88,6 +90,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>7.0.0</version>
+		</dependency>
 
 		<!-- Depencencias para el envío de correo electrónico -->
 		<dependency>
@@ -102,7 +109,7 @@
 		</dependency>
 
 	</dependencies>
-  
-  
-  
+
+
+
 </project>
