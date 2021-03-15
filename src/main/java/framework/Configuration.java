@@ -9,15 +9,16 @@ import java.util.Properties;
 
 public class Configuration {
 
-	public Global globals = new Global();
+	public static Global globals = new Global();
 	
 	public Global getGlobal(){
 		return globals;
 	}
 
-	public void loadConfiguration(String configurationPath) throws IOException{
+	public static void loadConfiguration(String configurationPath) throws IOException{
 			
 			File configFile = new File(configurationPath);
+
 			if (!configFile.exists())
 				throw new IOException("File '" + configurationPath + "' doesn't exists.");
 			
@@ -30,35 +31,43 @@ public class Configuration {
 			Properties properties = new Properties();
 			properties.load(new FileInputStream(configurationPath));
 			
-			globals.APP_PATH = properties.getProperty("app_path");
-			globals.APP_ACTIVITY = properties.getProperty("app_activity");
-			globals.APP_PACKAGE = properties.getProperty("app_package");
+			globals.TARGET_DEVICE = properties.getProperty("target_devices").split(";");
 			
-			globals.ADDRESS = properties.getProperty("address");
-			globals.PORT = properties.getProperty("port");
-			globals.DRIVER = properties.getProperty("driver");
-			globals.URL = properties.getProperty("url");
-			globals.NODE_PATH = properties.getProperty("node_path");
-			globals.MAIN_PATH = properties.getProperty("main_path");
-			globals.AUTOMATION_NAME = properties.getProperty("automation_name");
-			globals.DEVICE_NAME = properties.getProperty("device_name");
-			globals.DEVICE_UDID = properties.getProperty("device_udid");
-			globals.PLATFORM_NAME = properties.getProperty("platform_name");
-			globals.PLATFORM_VERSION = properties.getProperty("platform_version");
-			globals.BROWSER = properties.getProperty("browser");
-			globals.LANGUAGE = properties.getProperty("language");
-			globals.LOCALE = properties.getProperty("locale");
-			globals.SDK_PATH = properties.getProperty("sdk_path");
-			globals.COVERAGE_CLASS = properties.getProperty("coverage_class");
-			globals.CHROMEDRIVER_PORT = properties.getProperty("chromedriver_port");
-			globals.BOOTSTRAP_PORT = properties.getProperty("bootstrap_port");
-			globals.SELENDROID_PORT = properties.getProperty("selendroid_port");
-			globals.DRIVERPATH = properties.getProperty("driver_path");
+			
+			Properties propertiesDevice = new Properties();
+			propertiesDevice.load(new FileInputStream(configurationPath.replace("framework.properties", "devices"+"\\"+globals.TARGET_DEVICE[0]+".properties")));
+			
+			globals.APP_PATH = propertiesDevice.getProperty("app_path");
+			globals.APP_ACTIVITY = propertiesDevice.getProperty("app_activity");
+			globals.APP_PACKAGE = propertiesDevice.getProperty("app_package");
+			
+			globals.ADDRESS = propertiesDevice.getProperty("address");
+			globals.PORT = propertiesDevice.getProperty("port");
+			globals.DRIVER = propertiesDevice.getProperty("driver");
+			System.out.println(propertiesDevice.getProperty("driver"));
+			globals.URL = propertiesDevice.getProperty("url");
+			globals.NODE_PATH = propertiesDevice.getProperty("node_path");
+			globals.MAIN_PATH = propertiesDevice.getProperty("main_path");
+			globals.AUTOMATION_NAME = propertiesDevice.getProperty("automation_name");
+			globals.DEVICE_NAME = propertiesDevice.getProperty("device_name");
+			globals.DEVICE_UDID = propertiesDevice.getProperty("device_udid");
+			globals.PLATFORM_NAME = propertiesDevice.getProperty("platform_name");
+			globals.PLATFORM_VERSION = propertiesDevice.getProperty("platform_version");
+			globals.BROWSER = propertiesDevice.getProperty("browser");
+			globals.LANGUAGE = propertiesDevice.getProperty("language");
+			globals.LOCALE = propertiesDevice.getProperty("locale");
+			globals.SDK_PATH = propertiesDevice.getProperty("sdk_path");
+			globals.COVERAGE_CLASS = propertiesDevice.getProperty("coverage_class");
+			globals.CHROMEDRIVER_PORT = propertiesDevice.getProperty("chromedriver_port");
+			globals.BOOTSTRAP_PORT = propertiesDevice.getProperty("bootstrap_port");
+			globals.SELENDROID_PORT = propertiesDevice.getProperty("selendroid_port");
+			globals.DRIVERPATH = propertiesDevice.getProperty("driver_path");
 		}
 	
 	
-	public class Global{
+	public static  class Global{
 		// General
+		public String[] TARGET_DEVICE = null;
 		public String ADDRESS = null;
 		public String PORT = null;
 		public String DRIVER = null;

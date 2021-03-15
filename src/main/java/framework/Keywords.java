@@ -16,17 +16,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.Logger;
 
-public class Keywords{
+public class Keywords {
 
 	final private static String CLASS_NAME = "Keywords";
 	private static Logger logger = new Logger(CLASS_NAME);
-	
+
 	final private static long SHORT_TIME_OUT = 2;
 	final private static long TIME_OUT = 15;
 	final private static long LONG_TIME_OUT = 30;
 	final private static long EXTRA_LONG_TIME_OUT = 100;
 
 	public static Map<String, String> data = new HashMap<String, String>();
+
 	public static Logger getLogger() {
 		return logger;
 	}
@@ -43,7 +44,7 @@ public class Keywords{
 		logger.debug("Pushing on " + Arrays.toString(arrayElement) + "...");
 
 		WebElement webElement = waitToBePresent(arrayElement, TIME_OUT);
-    
+
 		if (webElement != null) {
 			try {
 				if (webElement.isDisplayed()) {
@@ -73,7 +74,7 @@ public class Keywords{
 	 */
 	public static void writeInto(String[] arrayElement, String text) throws Exception {
 		logger.debug("Writing " + text + " into " + Arrays.toString(arrayElement) + "...");
-		
+
 		WebElement webElement = waitToBePresent(arrayElement, TIME_OUT);
 
 		if (webElement != null) {
@@ -105,7 +106,7 @@ public class Keywords{
 	 * @throws Exception
 	 */
 	public static String getProperty(String[] arrayElement, String propName) throws Exception {
-		
+
 		WebElement webElement = waitToBePresent(arrayElement, TIME_OUT);
 		logger.debug("Getting property " + propName + " of " + Arrays.toString(arrayElement));
 
@@ -150,9 +151,9 @@ public class Keywords{
 				String elementText = webElement.getText();
 				if (!text.equals(elementText)) {
 					logger.error("The given text is not equals in the element");
-					throw new Exception("Text '"+ text +"' is not found"); // TODO Cambiar por excepciones controladas
+					throw new Exception("Text '" + text + "' is not found"); // TODO Cambiar por excepciones controladas
 				} else
-					logger.debug("Text '"+ text+"' encontrado correctamente");
+					logger.debug("Text '" + text + "' encontrado correctamente");
 			} else {
 				logger.debug("The given text is empty or null.");
 				throw new Exception("Text is empty or null"); // TODO Cambiar por excepciones controladas
@@ -176,8 +177,9 @@ public class Keywords{
 
 	public static void containsText(String[] arrayElement, String text) throws Exception {
 		WebElement webElement = waitToBePresent(arrayElement, TIME_OUT);
-		
-		logger.debug("Verifying that it contains  the following text '" + text + "' in " + Arrays.toString(arrayElement));
+
+		logger.debug(
+				"Verifying that it contains  the following text '" + text + "' in " + Arrays.toString(arrayElement));
 
 		if (webElement != null) {
 			if (text != null && !text.isEmpty()) {
@@ -194,10 +196,11 @@ public class Keywords{
 			}
 		} else {
 			logger.error("The object " + Arrays.toString(arrayElement) + " has not been found.");
-			throw new Exception("Element is not found: "+ Arrays.toString(arrayElement)); // TODO Cambiar por excepciones controladas
+			throw new Exception("Element is not found: " + Arrays.toString(arrayElement)); // TODO Cambiar por
+																							// excepciones controladas
 		}
 	}
-	
+
 	/**
 	 * Este metodo verificara que existe un elemento en pantalla
 	 * 
@@ -237,7 +240,8 @@ public class Keywords{
 	public static void verify(String[] arrayElement, int timeOut) throws Exception {
 		logger.debug("Verifying the object: '" + Arrays.toString(arrayElement) + "'");
 		if (!exists(arrayElement, timeOut))
-			throw new Exception("The element does not exist: " + Arrays.toString(arrayElement)+" in "+ timeOut + "s.");
+			throw new Exception(
+					"The element does not exist: " + Arrays.toString(arrayElement) + " in " + timeOut + "s.");
 	}
 
 	/**
@@ -250,7 +254,7 @@ public class Keywords{
 	 * @throws Exception
 	 */
 	public static void selectOptions(String[] arrayElement, String... options) throws Exception {
-		
+
 		WebElement webElement = waitToBePresent(arrayElement, TIME_OUT);
 		logger.debug("Verifying the object: '" + Arrays.toString(arrayElement) + "'");
 
@@ -265,21 +269,21 @@ public class Keywords{
 				+ Arrays.toString(arrayElement) + "'.";
 		logger.debug(description);
 
-			if (webElement != null) {
-				Select dropdownSelect = new Select(webElement);
-				for (String option : options) {
-					try {
-						if (option != null && !option.isEmpty())
-							dropdownSelect.selectByVisibleText(option);
-					} catch (NoSuchElementException e) {
-						logger.error("Couldn't find dropdown selector with value: " + option);
-						throw new Exception("The element does not exist.");
-					}
+		if (webElement != null) {
+			Select dropdownSelect = new Select(webElement);
+			for (String option : options) {
+				try {
+					if (option != null && !option.isEmpty())
+						dropdownSelect.selectByVisibleText(option);
+				} catch (NoSuchElementException e) {
+					logger.error("Couldn't find dropdown selector with value: " + option);
+					throw new Exception("The element does not exist.");
 				}
-			} else {
-				logger.error("Couldn't find dropdown selector: '" + Arrays.toString(arrayElement) + "'");
-				throw new Exception("The dropdown selector does not exist or it has not been posible found it.");
 			}
+		} else {
+			logger.error("Couldn't find dropdown selector: '" + Arrays.toString(arrayElement) + "'");
+			throw new Exception("The dropdown selector does not exist or it has not been posible found it.");
+		}
 	}
 
 	/**
@@ -290,7 +294,7 @@ public class Keywords{
 	 * @author Jairo
 	 */
 	public static void waitSec(long sec) {
-		logger.debug("Waiting "+ sec + "s...");
+		logger.debug("Waiting " + sec + "s...");
 		try {
 			Thread.sleep(sec * 1000);
 		} catch (InterruptedException e) {
@@ -310,10 +314,15 @@ public class Keywords{
 	 */
 
 	public static WebElement waitToBePresent(String[] arrayElement, long sec) {
-		logger.debug("Waiting to be present... : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
+		logger.debug("Waiting to be present... : '" + Arrays.toString(arrayElement) + "' during " + sec + "s...");
 		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), sec);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ObjectManager.getByObject(arrayElement)));
 		return ObjectManager.getObject(arrayElement);
+	}
+
+	public static void isNotPresent(String[] arrayElement) throws ExecutionException {
+		logger.debug("Verifying is not present: '" + Arrays.toString(arrayElement) + "...");
+		ObjectManager.isObjectNotPresent(arrayElement, 1);
 	}
 
 	/**
@@ -327,7 +336,7 @@ public class Keywords{
 	 * @author Jairo
 	 */
 	public static WebElement waitToBeClickable(String[] arrayElement, long sec) {
-		logger.debug("Waiting to be clickable : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
+		logger.debug("Waiting to be clickable : '" + Arrays.toString(arrayElement) + "' during " + sec + "s...");
 		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), sec);
 		wait.until(ExpectedConditions.elementToBeClickable(ObjectManager.getByObject(arrayElement)));
 		return ObjectManager.getObject(arrayElement);
@@ -344,7 +353,7 @@ public class Keywords{
 	 * @author Jairo
 	 */
 	public static WebElement waitToBeVisible(String[] arrayElement, long sec) {
-		logger.debug("Waiting to be visible... : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
+		logger.debug("Waiting to be visible... : '" + Arrays.toString(arrayElement) + "' during " + sec + "s...");
 		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), sec);
 		wait.until(ExpectedConditions.visibilityOf(ObjectManager.getObject(arrayElement)));
 		return ObjectManager.getObject(arrayElement);
@@ -361,49 +370,50 @@ public class Keywords{
 	 * @throws ExecutionException
 	 */
 	public static void waitToVanish(String[] arrayElement, long sec) throws ExecutionException { // TODO probar
-		logger.debug("Waiting to vanish ... : '" + Arrays.toString(arrayElement) + "' during "+ sec + "s...");
+		logger.debug("Waiting to vanish ... : '" + Arrays.toString(arrayElement) + "' during " + sec + "s...");
 		ObjectManager.isObjectNotPresent(arrayElement, sec);
 	}
 
 	/**
-	 * Este metodo almacena un dato para poder consultarlo cuando se necesite dentro de la ejecucción
+	 * Este metodo almacena un dato para poder consultarlo cuando se necesite dentro
+	 * de la ejecucción
 	 * 
 	 * @author jairo
-	 * @param key Clave para localizar el dato
+	 * @param key   Clave para localizar el dato
 	 * @param value Valor del dato
 	 */
 	public static void saveData(String key, String value) {
-		logger.debug("Recovering '"+value+"' on '"+ key + "' ...");
+		logger.debug("Recovering '" + value + "' on '" + key + "' ...");
 		data.put(key, value);
 	}
-	
+
 	/**
 	 * Este metodo recupera un dato guardado previamente
 	 * 
 	 * @author jairo
-	 * @param key Clave para localizar el dato
+	 * @param key   Clave para localizar el dato
 	 * @param value Valor del dato
 	 */
 	public static String recoverData(String key) {
-		logger.debug("Recovering data of : '"+ key + "' ...");
+		logger.debug("Recovering data of : '" + key + "' ...");
 		return data.get(key);
 	}
-	
+
 	/**
-	 * Método que poen a esperar al navegador hasta que la página se carga por completo y JavaScript notifica que así es, efectivamente.
+	 * Método que poen a esperar al navegador hasta que la página se carga por
+	 * completo y JavaScript notifica que así es, efectivamente.
 	 * 
 	 * @author Jairo
 	 */
 	public static void waitToLoadPage() {
 		logger.debug("Waiting to load full page...");
-		ExpectedCondition<Boolean> pageLoadCondition = new
-                ExpectedCondition<Boolean>() {
-                    public Boolean apply(WebDriver driver) {
-                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
-                    }
-                };
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), LONG_TIME_OUT);
-        wait.until(pageLoadCondition);
-    }
+		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+			}
+		};
+		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), LONG_TIME_OUT);
+		wait.until(pageLoadCondition);
+	}
 
 }
