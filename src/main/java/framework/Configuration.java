@@ -35,7 +35,11 @@ public class Configuration {
 			
 			
 			Properties propertiesDevice = new Properties();
-			propertiesDevice.load(new FileInputStream(configurationPath.replace("framework.properties", "devices"+"\\"+globals.TARGET_DEVICE[0]+".properties")));
+			System.out.println("OS: "+ System.getProperty("os.name"));
+			String separation = "\\";
+			if(!System.getProperty("os.name").contains("Windows"))
+				separation ="/";
+			propertiesDevice.load(new FileInputStream(configurationPath.replace("framework.properties", "devices"+separation+globals.TARGET_DEVICE[0]+".properties")));
 			
 			globals.APP_PATH = propertiesDevice.getProperty("app_path");
 			globals.APP_ACTIVITY = propertiesDevice.getProperty("app_activity");
@@ -44,7 +48,7 @@ public class Configuration {
 			globals.ADDRESS = propertiesDevice.getProperty("address");
 			globals.PORT = propertiesDevice.getProperty("port");
 			globals.DRIVER = propertiesDevice.getProperty("driver");
-			System.out.println(propertiesDevice.getProperty("driver"));
+			System.out.println("System: " + propertiesDevice.getProperty("driver"));
 			globals.URL = propertiesDevice.getProperty("url");
 			globals.NODE_PATH = propertiesDevice.getProperty("node_path");
 			globals.MAIN_PATH = propertiesDevice.getProperty("main_path");
@@ -62,6 +66,8 @@ public class Configuration {
 			globals.BOOTSTRAP_PORT = propertiesDevice.getProperty("bootstrap_port");
 			globals.SELENDROID_PORT = propertiesDevice.getProperty("selendroid_port");
 			globals.DRIVERPATH = propertiesDevice.getProperty("driver_path");
+			globals.NORESET = propertiesDevice.getProperty("noreset");
+			globals.FULLRESET = propertiesDevice.getProperty("fullreset");
 		}
 	
 	
@@ -79,6 +85,8 @@ public class Configuration {
 		public String APP_PATH = null;					// Path to the apk. Android only.
 		public String APP_ACTIVITY = null;				// App activity. Android only.
 		public String APP_PACKAGE = null;				// App package. Android only.
+		public String NORESET = null;
+		public String FULLRESET = null;
 		
 		// Appium only
 		public String NODE_PATH = null;

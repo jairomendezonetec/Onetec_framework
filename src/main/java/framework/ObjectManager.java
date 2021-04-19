@@ -143,6 +143,7 @@ public class ObjectManager extends DriverManager {
 					return By.xpath("//*[contains(@" + keyContains + ",'" + value + "')]");
 				}
 			case "name":
+				System.out.println("name : "+ value);
 				return By.name(value);
 			case "xpath":
 				return By.xpath(value);

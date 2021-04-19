@@ -27,12 +27,12 @@ public class DriverManager {
 	public static void setUp() {
 		String path = "testResources/framework.properties";
 	}
-	
+
 	public static WebDriver getDriver() {
 		return driver;
 	}
-	
-	public static AndroidDriver getAndroidDriver(){
+
+	public static AndroidDriver getAndroidDriver() {
 		if (driver instanceof AndroidDriver)
 			return (AndroidDriver) driver;
 		else
@@ -41,9 +41,7 @@ public class DriverManager {
 
 	protected void startDriver() throws MalformedURLException {
 		driverToExecute = configuration.getGlobal().DRIVER;
-		
-		System.out.println("Driver que estoy usando"+driverToExecute);
-		
+
 		switch (driverToExecute.toLowerCase()) {
 		case "chrome":
 			logger.debug("Starting chrome driver...");
@@ -78,9 +76,11 @@ public class DriverManager {
 	}
 
 	public void loadCapabilities(DesiredCapabilities capabilities, boolean isAndroid) {
-        
-		if (configuration.getGlobal().APP_PATH != null && configuration.getGlobal().APP_PATH != "")
-			capabilities.setCapability("app", configuration.getGlobal().APP_PATH);
+
+		if (configuration.getGlobal().APP_PATH != null && configuration.getGlobal().APP_PATH != "") {
+			capabilities.setCapability("app",
+					System.getProperty("user.dir").replace("\\", "/") + "/" + configuration.getGlobal().APP_PATH);
+		}
 		if (configuration.getGlobal().APP_PACKAGE != null && isAndroid)
 			capabilities.setCapability("appPackage", configuration.getGlobal().APP_PACKAGE);
 		if (configuration.getGlobal().APP_ACTIVITY != null && isAndroid)
@@ -117,11 +117,25 @@ public class DriverManager {
 			capabilities.setCapability("deviceName", configuration.getGlobal().DEVICE_NAME);
 		if (configuration.getGlobal().DEVICE_UDID != null)
 			capabilities.setCapability("udid", configuration.getGlobal().DEVICE_UDID);
+		if (configuration.getGlobal().FULLRESET != null)
+			capabilities.setCapability("fullReset", configuration.getGlobal().FULLRESET);
+		else if (configuration.getGlobal().NORESET != null)
+			capabilities.setCapability("noReset", configuration.getGlobal().NORESET);
+
 //		capabilities.setCapability("bootstrapPath",
 //				"/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent");
 //		capabilities.setCapability("agentPath",
 //				"/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent/WebDriverAgent.xcodeproj");
-		capabilities.setCapability("chromedriverExecutable", System.getProperty("user.dir").replace("\\", "/") + "/" + configuration.getGlobal().DRIVERPATH);
+		String extension = ".exe";
+		String chromedriverpath = configuration.getGlobal().DRIVERPATH;
+
+		if (System.getProperty("os.name").contains("Windows"))
+			chromedriverpath = chromedriverpath + ".exe";
+
+		if (configuration.getGlobal().DRIVERPATH != null) {
+			capabilities.setCapability("chromedriverExecutable",
+					System.getProperty("user.dir").replace("\\", "/") + "/" + chromedriverpath);
+		}
 	}
 
 	protected void close() {
@@ -133,7 +147,7 @@ public class DriverManager {
 		logger.debug("Tear down driver...");
 		driver.quit();
 	}
-	
+
 	protected void closeAppium() {
 		logger.debug("Closing device...");
 		driver.close();
@@ -142,6 +156,10 @@ public class DriverManager {
 	protected void quitAppium() {
 		logger.debug("Tear down driver...");
 		driver.quit();
+	}
+
+	public static String getAppPath() {
+		return System.getProperty("user.dir").replace("\\", "/") + "/" + configuration.getGlobal().APP_PATH;
 	}
 
 }

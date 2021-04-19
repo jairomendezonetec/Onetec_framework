@@ -313,7 +313,7 @@ public class Keywords {
 	 * @author Jairo
 	 */
 
-	public static WebElement waitToBePresent(String[] arrayElement, long sec) {
+	public static WebElement waitToBePresent(String[] arrayElement, long sec)  throws Exception{
 		logger.debug("Waiting to be present... : '" + Arrays.toString(arrayElement) + "' during " + sec + "s...");
 		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), sec);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ObjectManager.getByObject(arrayElement)));
