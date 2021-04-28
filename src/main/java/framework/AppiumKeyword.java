@@ -411,7 +411,11 @@ public class AppiumKeyword extends Keywords {
 	 */
 	public static void closeKeyboard() {
 		logger.debug("Closing keyboard...");
-		DriverManager.getAndroidDriver().hideKeyboard();
+		try {
+			DriverManager.getAndroidDriver().hideKeyboard();
+		} catch (Exception e) {
+			logger.debug("Keyboard is not present or is closed");
+		}
 	}
 
 	/**
