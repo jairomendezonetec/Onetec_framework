@@ -60,7 +60,19 @@ public class DriverManager {
 			capabilities = new DesiredCapabilities();
 			loadCapabilities(capabilities, true);
 			System.out.println(capabilities.toString());
-			driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
+			int i = 0;
+			boolean worked = false;
+			while (i < 3 && !worked) {
+				try {
+					driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
+					System.out.println("Context: " + getAndroidDriver().getContext());
+					worked = true;
+				} catch (Exception e) {
+					System.out.println("Trying launch driver again... (" + (i + 1) + "/3)");
+					i++;
+				}
+			}
+
 			break;
 		case "ios":
 			capabilities = new DesiredCapabilities();
@@ -113,8 +125,10 @@ public class DriverManager {
 //			capabilities.setCapability("automationName", configuration.getGlobal().AUTOMATION_NAME);
 		if (configuration.getGlobal().PLATFORM_VERSION != null)
 			capabilities.setCapability("platformVersion", configuration.getGlobal().PLATFORM_VERSION);
-		if (configuration.getGlobal().DEVICE_NAME != null)
+		if (configuration.getGlobal().DEVICE_NAME != null) {
 			capabilities.setCapability("deviceName", configuration.getGlobal().DEVICE_NAME);
+			capabilities.setCapability("avd", configuration.getGlobal().DEVICE_NAME);
+		}
 		if (configuration.getGlobal().DEVICE_UDID != null)
 			capabilities.setCapability("udid", configuration.getGlobal().DEVICE_UDID);
 		if (configuration.getGlobal().FULLRESET != null)
