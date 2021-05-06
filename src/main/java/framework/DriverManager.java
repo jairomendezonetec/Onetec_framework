@@ -156,7 +156,7 @@ public class DriverManager {
 			capabilities.setCapability("chromedriverExecutable",
 					System.getProperty("user.dir").replace("\\", "/") + "/" + chromedriverpath);
 		}
-		capabilities.setCapability("newCommandTimeout", 3200);
+		capabilities.setCapability("newCommandTimeout", 0);
 		
 	}
 
