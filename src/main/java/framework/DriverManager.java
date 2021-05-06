@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -16,7 +17,7 @@ import utils.Logger;
 public class DriverManager {
 
 	protected static WebDriver driver = null;
-	public static AndroidDriver<MobileElement> androidDriver = null;
+	public static AppiumDriver androidDriver = null;
 	private ChromeOptions options;
 	final private static String CLASS_NAME = "DriverManager";
 	private static Logger logger = new Logger(CLASS_NAME);
@@ -62,6 +63,8 @@ public class DriverManager {
 			System.out.println(capabilities.toString());
 			int i = 0;
 			boolean worked = false;
+			driver= (AppiumDriver) new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+//			driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
 			while (i < 3 && !worked) {
 				try {
 					driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
@@ -69,6 +72,9 @@ public class DriverManager {
 					worked = true;
 				} catch (Exception e) {
 					System.out.println("Trying launch driver again... (" + (i + 1) + "/3)");
+					if (i==2) {
+						throw new Error(e);
+					}
 					i++;
 				}
 			}
@@ -150,6 +156,8 @@ public class DriverManager {
 			capabilities.setCapability("chromedriverExecutable",
 					System.getProperty("user.dir").replace("\\", "/") + "/" + chromedriverpath);
 		}
+		capabilities.setCapability("newCommandTimeout", 3200);
+		
 	}
 
 	protected void close() {
