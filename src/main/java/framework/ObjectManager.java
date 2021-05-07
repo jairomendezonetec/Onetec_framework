@@ -215,9 +215,7 @@ public class ObjectManager extends DriverManager {
 				driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 				return false;
 			} catch (Exception e) {
-				driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-				throw new ExecutionException("[ERROR] Unexpected error while waiting for element to be present",
-						e.getCause());
+				logger.debug("Element "+Arrays.toString(elementToFound)+" is not on screen");
 			}
 			return notPresent;
 		} else {
