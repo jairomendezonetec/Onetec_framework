@@ -46,14 +46,17 @@ public class DriverManager {
 		switch (driverToExecute.toLowerCase()) {
 		case "chrome":
 			logger.debug("Starting chrome driver...");
+			options = new ChromeOptions();
 			String sSistemaOperativo = System.getProperty("os.name");
-			if (sSistemaOperativo.contains("Linux"))
+			if (sSistemaOperativo.contains("Linux")) {
 				System.setProperty("webdriver.chrome.driver", "/var/lib/drivers/chromedriver");
+				options.setHeadless(true);
+				options.addArguments("--disable-dev-shm-usage");
+			}
 			else
 				System.setProperty("webdriver.chrome.driver", configuration.getGlobal().DRIVERPATH);
-			options = new ChromeOptions();
-//			options.setHeadless(true);
 			driver = new ChromeDriver(options);
+			
 			driver.manage().deleteAllCookies();
 //			driver.manage().window().maximize();
 			break;
@@ -63,7 +66,7 @@ public class DriverManager {
 			System.out.println(capabilities.toString());
 			int i = 0;
 			boolean worked = false;
-			driver= (AppiumDriver) new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+			driver = (AppiumDriver) new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 //			driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
 			while (i < 3 && !worked) {
 				try {
@@ -72,7 +75,7 @@ public class DriverManager {
 					worked = true;
 				} catch (Exception e) {
 					System.out.println("Trying launch driver again... (" + (i + 1) + "/3)");
-					if (i==2) {
+					if (i == 2) {
 						throw new Error(e);
 					}
 					i++;
@@ -82,7 +85,7 @@ public class DriverManager {
 			break;
 		case "ios":
 			capabilities = new DesiredCapabilities();
-			loadCapabilities(capabilities, true);
+			loadCapabilities(capabilities, false);
 			driver = new IOSDriver(new URL(
 					"http://" + configuration.getGlobal().ADDRESS + ":" + configuration.getGlobal().PORT + "/wd/hub"),
 					capabilities);
@@ -99,8 +102,10 @@ public class DriverManager {
 			capabilities.setCapability("app",
 					System.getProperty("user.dir").replace("\\", "/") + "/" + configuration.getGlobal().APP_PATH);
 		}
-		if (configuration.getGlobal().APP_PACKAGE != null && isAndroid)
+		if (configuration.getGlobal().APP_PACKAGE != null && isAndroid) {
+			capabilities.setCapability("appPackage", "120000");
 			capabilities.setCapability("appPackage", configuration.getGlobal().APP_PACKAGE);
+		}
 		if (configuration.getGlobal().APP_ACTIVITY != null && isAndroid)
 			capabilities.setCapability("appActivity", configuration.getGlobal().APP_ACTIVITY);
 //		if (configuration.getGlobal().APP_ACTIVITY != null && !isAndroid)
@@ -127,12 +132,14 @@ public class DriverManager {
 //		}
 		if (configuration.getGlobal().PLATFORM_NAME != null)
 			capabilities.setCapability("platformName", configuration.getGlobal().PLATFORM_NAME);
-//		if (configuration.getGlobal().AUTOMATION_NAME != null && isAndroid)
-//			capabilities.setCapability("automationName", configuration.getGlobal().AUTOMATION_NAME);
+		if (configuration.getGlobal().AUTOMATION_NAME != null && isAndroid)
+			capabilities.setCapability("automationName", configuration.getGlobal().AUTOMATION_NAME);
 		if (configuration.getGlobal().PLATFORM_VERSION != null)
 			capabilities.setCapability("platformVersion", configuration.getGlobal().PLATFORM_VERSION);
 		if (configuration.getGlobal().DEVICE_NAME != null) {
 			capabilities.setCapability("deviceName", configuration.getGlobal().DEVICE_NAME);
+		}
+		if (configuration.getGlobal().DEVICE_NAME.contains("emulator")) {
 			capabilities.setCapability("avd", configuration.getGlobal().DEVICE_NAME);
 		}
 		if (configuration.getGlobal().DEVICE_UDID != null)
@@ -157,7 +164,7 @@ public class DriverManager {
 					System.getProperty("user.dir").replace("\\", "/") + "/" + chromedriverpath);
 		}
 		capabilities.setCapability("newCommandTimeout", 0);
-		
+
 	}
 
 	protected void close() {

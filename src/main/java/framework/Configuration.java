@@ -3,6 +3,8 @@ package framework;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -17,58 +19,65 @@ public class Configuration {
 
 	public static void loadConfiguration(String configurationPath) throws IOException{
 			
-			File configFile = new File(configurationPath);
-
-			if (!configFile.exists())
-				throw new IOException("File '" + configurationPath + "' doesn't exists.");
-			
-			if (configFile.isDirectory())
-				throw new IOException(configurationPath+" is a directory.");
-			
-			if (!configFile.isFile())
-				throw new IOException(configurationPath+" is not a file.");
-			
-			Properties properties = new Properties();
-			properties.load(new FileInputStream(configurationPath));
-			
-			globals.TARGET_DEVICE = properties.getProperty("target_devices").split(";");
-			
-			
-			Properties propertiesDevice = new Properties();
-			System.out.println("OS: "+ System.getProperty("os.name"));
-			String separation = "\\";
-			if(!System.getProperty("os.name").contains("Windows"))
-				separation ="/";
-			propertiesDevice.load(new FileInputStream(configurationPath.replace("framework.properties", "devices"+separation+globals.TARGET_DEVICE[0]+".properties")));
-			
-			globals.APP_PATH = propertiesDevice.getProperty("app_path");
-			globals.APP_ACTIVITY = propertiesDevice.getProperty("app_activity");
-			globals.APP_PACKAGE = propertiesDevice.getProperty("app_package");
-			
-			globals.ADDRESS = propertiesDevice.getProperty("address");
-			globals.PORT = propertiesDevice.getProperty("port");
-			globals.DRIVER = propertiesDevice.getProperty("driver");
-			System.out.println("System: " + propertiesDevice.getProperty("driver"));
-			globals.URL = propertiesDevice.getProperty("url");
-			globals.NODE_PATH = propertiesDevice.getProperty("node_path");
-			globals.MAIN_PATH = propertiesDevice.getProperty("main_path");
-			globals.AUTOMATION_NAME = propertiesDevice.getProperty("automation_name");
-			globals.DEVICE_NAME = propertiesDevice.getProperty("device_name");
-			globals.DEVICE_UDID = propertiesDevice.getProperty("device_udid");
-			globals.PLATFORM_NAME = propertiesDevice.getProperty("platform_name");
-			globals.PLATFORM_VERSION = propertiesDevice.getProperty("platform_version");
-			globals.BROWSER = propertiesDevice.getProperty("browser");
-			globals.LANGUAGE = propertiesDevice.getProperty("language");
-			globals.LOCALE = propertiesDevice.getProperty("locale");
-			globals.SDK_PATH = propertiesDevice.getProperty("sdk_path");
-			globals.COVERAGE_CLASS = propertiesDevice.getProperty("coverage_class");
-			globals.CHROMEDRIVER_PORT = propertiesDevice.getProperty("chromedriver_port");
-			globals.BOOTSTRAP_PORT = propertiesDevice.getProperty("bootstrap_port");
-			globals.SELENDROID_PORT = propertiesDevice.getProperty("selendroid_port");
-			globals.DRIVERPATH = propertiesDevice.getProperty("driver_path");
-			globals.NORESET = propertiesDevice.getProperty("noreset");
-			globals.FULLRESET = propertiesDevice.getProperty("fullreset");
+		String sSistemaOperativo = System.getProperty("os.name");
+		System.out.println(sSistemaOperativo);
+		if (sSistemaOperativo.contains("Linux")) {
+			Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+			configurationPath = path + "/" + configurationPath;
 		}
+		
+		File configFile = new File(configurationPath);
+
+		if (!configFile.exists())
+			throw new IOException("File '" + configurationPath + "' doesn't exists. System operative: "+ sSistemaOperativo);
+		
+		if (configFile.isDirectory())
+			throw new IOException(configurationPath+" is a directory.");
+		
+		if (!configFile.isFile())
+			throw new IOException(configurationPath+" is not a file.");
+		
+		Properties properties = new Properties();
+		properties.load(new FileInputStream(configurationPath));
+		
+		globals.TARGET_DEVICE = properties.getProperty("target_devices").split(";");
+		
+		
+		Properties propertiesDevice = new Properties();
+		System.out.println("OS: "+ System.getProperty("os.name"));
+		String separation = "\\";
+		if(!System.getProperty("os.name").contains("Windows"))
+			separation ="/";
+		propertiesDevice.load(new FileInputStream(configurationPath.replace("framework.properties", "devices"+separation+globals.TARGET_DEVICE[0]+".properties")));
+		
+		globals.APP_PATH = propertiesDevice.getProperty("app_path");
+		globals.APP_ACTIVITY = propertiesDevice.getProperty("app_activity");
+		globals.APP_PACKAGE = propertiesDevice.getProperty("app_package");
+		
+		globals.ADDRESS = propertiesDevice.getProperty("address");
+		globals.PORT = propertiesDevice.getProperty("port");
+		globals.DRIVER = propertiesDevice.getProperty("driver");
+		System.out.println("System: " + propertiesDevice.getProperty("driver"));
+		globals.URL = propertiesDevice.getProperty("url");
+		globals.NODE_PATH = propertiesDevice.getProperty("node_path");
+		globals.MAIN_PATH = propertiesDevice.getProperty("main_path");
+		globals.AUTOMATION_NAME = propertiesDevice.getProperty("automation_name");
+		globals.DEVICE_NAME = propertiesDevice.getProperty("device_name");
+		globals.DEVICE_UDID = propertiesDevice.getProperty("device_udid");
+		globals.PLATFORM_NAME = propertiesDevice.getProperty("platform_name");
+		globals.PLATFORM_VERSION = propertiesDevice.getProperty("platform_version");
+		globals.BROWSER = propertiesDevice.getProperty("browser");
+		globals.LANGUAGE = propertiesDevice.getProperty("language");
+		globals.LOCALE = propertiesDevice.getProperty("locale");
+		globals.SDK_PATH = propertiesDevice.getProperty("sdk_path");
+		globals.COVERAGE_CLASS = propertiesDevice.getProperty("coverage_class");
+		globals.CHROMEDRIVER_PORT = propertiesDevice.getProperty("chromedriver_port");
+		globals.BOOTSTRAP_PORT = propertiesDevice.getProperty("bootstrap_port");
+		globals.SELENDROID_PORT = propertiesDevice.getProperty("selendroid_port");
+		globals.DRIVERPATH = propertiesDevice.getProperty("driver_path");
+		globals.NORESET = propertiesDevice.getProperty("noreset");
+		globals.FULLRESET = propertiesDevice.getProperty("fullreset");
+	}
 	
 	
 	public static  class Global{
