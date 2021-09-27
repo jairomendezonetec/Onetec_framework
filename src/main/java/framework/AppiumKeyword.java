@@ -1,6 +1,7 @@
 package framework;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import utils.Logger;
@@ -69,10 +71,20 @@ public class AppiumKeyword extends Keywords {
 	 * @param text         Contiene el texto que debe ser introducido
 	 * @throws Exception
 	 */
-	public static void changeContext(String context) throws Exception {
-		logger.debug("Changing context to : " + context);
-
-		DriverManager.getAndroidDriver().context(context);
+	public static void changeContext(String contextParam) throws Exception {
+		logger.debug("Changing context to : " + contextParam);
+		
+		ArrayList<String> contexts = new ArrayList(DriverManager.getAndroidDriver().getContextHandles());
+		
+		if(contextParam.contains("WEBVIEW")) {
+		    for (String context : contexts) {
+		        if (context.contains("WEBVIEW")) {
+		        	contextParam = context;
+		        }
+		    }
+		}
+	    
+		DriverManager.getAndroidDriver().context(contextParam);
 
 		logger.debug("Actual context: " + DriverManager.getAndroidDriver().getContext());
 	}

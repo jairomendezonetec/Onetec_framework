@@ -8,11 +8,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import framework.Configuration.Global;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import utils.Logger;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 
 public class DriverManager {
 
@@ -32,29 +35,37 @@ public class DriverManager {
 	public static WebDriver getDriver() {
 		return driver;
 	}
+	
+	public static Global getGlobals() {
+		return configuration.getGlobal();
+	}
 
-	public static AndroidDriver getAndroidDriver() {
+	public static AppiumDriver getAndroidDriver() {
 		if (driver instanceof AndroidDriver)
 			return (AndroidDriver) driver;
+		else if (driver instanceof IOSDriver)
+			return (IOSDriver) driver;
 		else
 			return null;
 	}
 
 	protected void startDriver() throws MalformedURLException {
 		driverToExecute = configuration.getGlobal().DRIVER;
-
+		
 		switch (driverToExecute.toLowerCase()) {
 		case "chrome":
 			logger.debug("Starting chrome driver...");
 			options = new ChromeOptions();
 			String sSistemaOperativo = System.getProperty("os.name");
-			if (sSistemaOperativo.contains("Linux")) {
-				System.setProperty("webdriver.chrome.driver", "/var/lib/drivers/chromedriver");
-				options.setHeadless(true);
-				options.addArguments("--disable-dev-shm-usage");
-			}
-			else
-				System.setProperty("webdriver.chrome.driver", configuration.getGlobal().DRIVERPATH);
+			WebDriverManager.chromedriver().setup();
+			System.out.println("METE DRIVER");
+//			if (sSistemaOperativo.contains("Linux")) {
+//				System.setProperty("webdriver.chrome.driver", "/var/lib/drivers/chromedriver");
+//				options.setHeadless(true);
+//				options.addArguments("--disable-dev-shm-usage");
+//			}
+//			else
+//				System.setProperty("webdriver.chrome.driver", configuration.getGlobal().DRIVERPATH);
 			driver = new ChromeDriver(options);
 			
 			driver.manage().deleteAllCookies();
@@ -71,7 +82,7 @@ public class DriverManager {
 			while (i < 3 && !worked) {
 				try {
 					driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
-					System.out.println("Context: " + getAndroidDriver().getContext());
+					System.out.println("Context: " + ((AppiumDriver) getAndroidDriver()).getContext());
 					worked = true;
 				} catch (Exception e) {
 					System.out.println("Trying launch driver again... (" + (i + 1) + "/3)");
@@ -86,6 +97,7 @@ public class DriverManager {
 		case "ios":
 			capabilities = new DesiredCapabilities();
 			loadCapabilities(capabilities, false);
+			System.out.println(capabilities.toString());
 			driver = new IOSDriver(new URL(
 					"http://" + configuration.getGlobal().ADDRESS + ":" + configuration.getGlobal().PORT + "/wd/hub"),
 					capabilities);
@@ -97,7 +109,6 @@ public class DriverManager {
 	}
 
 	public void loadCapabilities(DesiredCapabilities capabilities, boolean isAndroid) {
-
 		if (configuration.getGlobal().APP_PATH != null && configuration.getGlobal().APP_PATH != "") {
 			capabilities.setCapability("app",
 					System.getProperty("user.dir").replace("\\", "/") + "/" + configuration.getGlobal().APP_PATH);
@@ -132,7 +143,7 @@ public class DriverManager {
 //		}
 		if (configuration.getGlobal().PLATFORM_NAME != null)
 			capabilities.setCapability("platformName", configuration.getGlobal().PLATFORM_NAME);
-		if (configuration.getGlobal().AUTOMATION_NAME != null && isAndroid)
+		if (configuration.getGlobal().AUTOMATION_NAME != null && !isAndroid) 
 			capabilities.setCapability("automationName", configuration.getGlobal().AUTOMATION_NAME);
 		if (configuration.getGlobal().PLATFORM_VERSION != null)
 			capabilities.setCapability("platformVersion", configuration.getGlobal().PLATFORM_VERSION);

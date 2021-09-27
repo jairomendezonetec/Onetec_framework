@@ -13,7 +13,7 @@ public class Configuration {
 
 	public static Global globals = new Global();
 	
-	public Global getGlobal(){
+	public static Global getGlobal(){
 		return globals;
 	}
 
@@ -62,6 +62,7 @@ public class Configuration {
 		globals.NODE_PATH = propertiesDevice.getProperty("node_path");
 		globals.MAIN_PATH = propertiesDevice.getProperty("main_path");
 		globals.AUTOMATION_NAME = propertiesDevice.getProperty("automation_name");
+		System.out.println("automation_name: " + propertiesDevice.getProperty("automation_name"));
 		globals.DEVICE_NAME = propertiesDevice.getProperty("device_name");
 		globals.DEVICE_UDID = propertiesDevice.getProperty("device_udid");
 		globals.PLATFORM_NAME = propertiesDevice.getProperty("platform_name");

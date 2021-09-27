@@ -61,7 +61,7 @@
 			<artifactId>webdrivermanager</artifactId>
 			<version>4.3.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
@@ -101,7 +101,12 @@
 			<artifactId>java-client</artifactId>
 			<version>7.0.0</version>
 		</dependency>
-
+<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>4.0.0</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- Depencencias para el envío de correo electrónico -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -113,7 +118,14 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.6</version>
 		</dependency>
-
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>4.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Depencencias para descargar drivers automaticamente -->
+		
 	</dependencies>
 
 
