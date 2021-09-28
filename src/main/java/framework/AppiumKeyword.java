@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.TouchAction;
@@ -36,17 +38,16 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Este metodo realiza la acción de pulsar sobre un elemento de la pantalla
+	 * Este metodo realiza la acciÃ³n de pulsar sobre un elemento de la pantalla
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la búsqueda del elemento.
+	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
 	 * @throws Exception
 	 */
 	public static void pushOn(String[] arrayElement) throws Exception {
-		logger.debug("Pushing on " + Arrays.toString(arrayElement) + "...");
 		WebElement mobileElement = waitToBeClickable(arrayElement, TIME_OUT);
-
+		logger.debug("Pushing on " + Arrays.toString(arrayElement) + "...");
 		if (mobileElement != null) {
 			try {
 				mobileElement.click();
@@ -62,40 +63,48 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Este metodo realiza la acción de escribir sobre un elemento de la pantalla un
-	 * valor pasado por parametro
-	 * 
+	 * Este metodo realiza la la acciÃ³n de cambiar de contexto(WEBVIEW o NATIVE_APP)
+	 *
 	 * @author jairo
-	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la búsqueda del elemento.
-	 * @param text         Contiene el texto que debe ser introducido
+	 * @param contextParam Contexto al que se quiere cambiar
 	 * @throws Exception
 	 */
 	public static void changeContext(String contextParam) throws Exception {
 		logger.debug("Changing context to : " + contextParam);
 		
 		ArrayList<String> contexts = new ArrayList(DriverManager.getAndroidDriver().getContextHandles());
-		
-		if(contextParam.contains("WEBVIEW")) {
-		    for (String context : contexts) {
-		        if (context.contains("WEBVIEW")) {
-		        	contextParam = context;
-		        }
-		    }
+
+		int i = 0;
+		while(i<20) {
+			if (contextParam.contains("WEBVIEW")) {
+				for (String context : contexts) {
+					if (context.contains("WEBVIEW")) {
+						contextParam = context;
+					}
+				}
+			}
+			try{
+				DriverManager.getAndroidDriver().context(contextParam);
+				break;
+			}catch (Exception e){
+				logger.debug("Waiting context '" + contextParam + "'...");
+				Thread.sleep(1000);
+			}
+			i++;
 		}
 	    
-		DriverManager.getAndroidDriver().context(contextParam);
+
 
 		logger.debug("Actual context: " + DriverManager.getAndroidDriver().getContext());
 	}
 
 	/**
-	 * Este metodo realiza la acción de escribir sobre un elemento de la pantalla un
+	 * Este metodo realiza la acciÃ³n de escribir sobre un elemento de la pantalla un
 	 * valor pasado por parametro
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la búsqueda del elemento.
+	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
 	 * @param text         Contiene el texto que debe ser introducido
 	 * @throws Exception
 	 */
@@ -128,7 +137,7 @@ public class AppiumKeyword extends Keywords {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la búsqueda del elemento.
+	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
 	 * @param propName     Contiene la propiedad que debe ser obtenida
 	 * @throws Exception
 	 */
@@ -163,7 +172,7 @@ public class AppiumKeyword extends Keywords {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la búsqueda del elemento.
+	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
 	 * @param text         Contiene el texto a ser buscado en el elemento
 	 * @throws Exception
 	 */
@@ -197,7 +206,7 @@ public class AppiumKeyword extends Keywords {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la búsqueda del elemento.
+	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
 	 * @param text         Contiene el texto a ser buscado en el elemento
 	 * @throws Exception
 	 */
@@ -232,7 +241,7 @@ public class AppiumKeyword extends Keywords {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la búsqueda del elemento.
+	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
 	 * @param timeOut      Tiempo de espera hasta encontrar el elemento
 	 * @throws Exception
 	 */
@@ -259,7 +268,7 @@ public class AppiumKeyword extends Keywords {
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la búsqueda del elemento.
+	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
 	 * @param timeOut      Tiempo de espera hasta encontrar el elemento
 	 * @throws Exception
 	 */
@@ -271,52 +280,52 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Este metodo seleccionará una opción de un selector desplegable
+	 * Este metodo seleccionarÃ¡ una opciÃ³n de un selector desplegable
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la búsqueda del elemento.
-	 * @param timeOut      Tiempo de espera hasta encontrar el elemento
+	 *                     contiene el tag y el valor de la bÃºsqueda del elemento.
+	 * @param options      Opciones para seleccionar
 	 * @throws Exception
 	 */
 	public static void selectOptions(String[] arrayElement, String... options) throws Exception {
 		logger.debug("Verifying the object: '" + Arrays.toString(arrayElement) + "'");
 		WebElement webElement = waitToBePresent(arrayElement, TIME_OUT);
-//		
-//
-//		String strOptions = "";
-//		for (String option : options)
-//			if (option == null || option.isEmpty())
-//				logger.warning("Invalid option was ignored (null or empty).");
-//			else
-//				strOptions += option + ", ";
-//
-//		String description = "Select options '" + strOptions + "' from dropdown selector '"
-//				+ Arrays.toString(arrayElement) + "'.";
-//		logger.debug(description);
-//
-//			if (webElement != null) {
-//				Select dropdownSelect = new Select(webElement);
-//				for (String option : options) {
-//					try {
-//						if (option != null && !option.isEmpty())
-//							dropdownSelect.selectByVisibleText(option);
-//					} catch (NoSuchElementException e) {
-//						logger.error("Couldn't find dropdown selector with value: " + option);
-//						throw new Exception("The element does not exist.");
-//					}
-//				}
-//			} else {
-//				logger.error("Couldn't find dropdown selector: '" + Arrays.toString(arrayElement) + "'");
-//				throw new Exception("The dropdown selector does not exist or it has not been posible found it.");
-//			}
+
+
+		String strOptions = "";
+		for (String option : options)
+			if (option == null || option.isEmpty())
+				logger.warning("Invalid option was ignored (null or empty).");
+			else
+				strOptions += option + ", ";
+
+		String description = "Select options '" + strOptions + "' from dropdown selector '"
+				+ Arrays.toString(arrayElement) + "'.";
+		logger.debug(description);
+
+			if (webElement != null) {
+				Select dropdownSelect = new Select(webElement);
+				for (String option : options) {
+					try {
+						if (option != null && !option.isEmpty())
+							dropdownSelect.selectByVisibleText(option);
+					} catch (NoSuchElementException e) {
+						logger.error("Couldn't find dropdown selector with value: " + option);
+						throw new Exception("The element does not exist.");
+					}
+				}
+			} else {
+				logger.error("Couldn't find dropdown selector: '" + Arrays.toString(arrayElement) + "'");
+				throw new Exception("The dropdown selector does not exist or it has not been posible found it.");
+			}
 	}
 
 	/**
-	 * Parar la ejecución los segundos que se determinen. Ojo: se usa la clase
+	 * Parar la ejecuciÃ³n los segundos que se determinen. Ojo: se usa la clase
 	 * Thread que puede lanzar excepciones.
 	 * 
-	 * @param El tiempo que se quiera parar la ejecución en segundos.
+	 * @param sec El tiempo que se quiera parar la ejecuciÃ³n en segundos.
 	 * @author Jairo
 	 */
 	public static void waitSec(long sec) {
@@ -329,13 +338,13 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Activa una espera explícita hasta que el elemento que se le pasa está
-	 * presente en la página.
+	 * Activa una espera explÃ­cita hasta que el elemento que se le pasa estÃ¡
+	 * presente en la pÃ¡gina.
 	 * 
-	 * @param Es un array que representa un atributo estático de la clase
+	 * @param arrayElement Es un array que representa un atributo estÃ¡tico de la clase
 	 *           PageObject.
-	 * @param El tiempo en segundos que dura la espera.
-	 * @return El elemento por el que se está esperando a que esté presente.
+	 * @param sec El tiempo en segundos que dura la espera.
+	 * @return El elemento por el que se estÃ¡ esperando a que estÃ© presente.
 	 * @author Jairo
 	 * @throws Exception
 	 */
@@ -353,13 +362,13 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Activa una espera explícita hasta que el elemento que se le pasa sea clicable
-	 * en la página.
+	 * Activa una espera explÃ­cita hasta que el elemento que se le pasa sea clicable
+	 * en la pÃ¡gina.
 	 * 
-	 * @param Es un array que representa un atributo estático de la clase
+	 * @param arrayElement Es un array que representa un atributo estÃ¡tico de la clase
 	 *           PageObject.
-	 * @param El tiempo en segundos que dura la espera.
-	 * @return El elemento por el que se está esperando a que esté presente.
+	 * @param sec El tiempo en segundos que dura la espera.
+	 * @return El elemento por el que se estÃ¡ esperando a que estÃ© presente.
 	 * @author Jairo
 	 */
 	public static WebElement waitToBeClickable(String[] arrayElement, long sec) {
@@ -370,13 +379,13 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Activa una espera explícita hasta que el elemento que se le pasa sea visible
-	 * en la página.
+	 * Activa una espera explÃ­cita hasta que el elemento que se le pasa sea visible
+	 * en la pÃ¡gina.
 	 * 
-	 * @param Es un array que representa un atributo estático de la clase
+	 * @param arrayElement Es un array que representa un atributo estÃ¡tico de la clase
 	 *           PageObject.
-	 * @param El tiempo en segundos que dura la espera.
-	 * @return El elemento por el que se está esperando a que esté presente.
+	 * @param sec El tiempo en segundos que dura la espera.
+	 * @return El elemento por el que se estÃ¡ esperando a que estÃ© presente.
 	 * @author Jairo
 	 */
 	public static WebElement waitToBeVisible(String[] arrayElement, long sec) {
@@ -387,12 +396,12 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Activa una espera explícita hasta que el elemento que se le pasa sea se
-	 * desvanezca en la página.
+	 * Activa una espera explÃ­cita hasta que el elemento que se le pasa sea se
+	 * desvanezca en la pÃ¡gina.
 	 * 
-	 * @param Es un array que representa un atributo estático de la clase
+	 * @param arrayElement Es un array que representa un atributo estÃ¡tico de la clase
 	 *           PageObject.
-	 * @param El tiempo en segundos que dura la espera.
+	 * @param sec El tiempo en segundos que dura la espera.
 	 * @author Jairo
 	 * @throws ExecutionException
 	 */
@@ -402,8 +411,8 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Método que poen a esperar al navegador hasta que la página se carga por
-	 * completo y JavaScript notifica que así es, efectivamente.
+	 * MÃ©todo que poen a esperar al navegador hasta que la pÃ¡gina se carga por
+	 * completo y JavaScript notifica que asÃ­ es, efectivamente.
 	 * 
 	 * @author Jairo
 	 */
@@ -420,7 +429,7 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Método que cierra el teclado del movil
+	 * MÃ©todo que cierra el teclado del movil
 	 * 
 	 * @author Jairo
 	 */
@@ -435,7 +444,7 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Método que cierra la app
+	 * MÃ©todo que cierra la app
 	 * 
 	 * @author Jairo
 	 */
@@ -445,7 +454,7 @@ public class AppiumKeyword extends Keywords {
 	}
 
 	/**
-	 * Método que abre la app
+	 * MÃ©todo que abre la app
 	 * 
 	 * @author Jairo
 	 */

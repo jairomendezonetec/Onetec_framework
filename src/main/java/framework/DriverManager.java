@@ -58,7 +58,6 @@ public class DriverManager {
 			options = new ChromeOptions();
 			String sSistemaOperativo = System.getProperty("os.name");
 			WebDriverManager.chromedriver().setup();
-			System.out.println("METE DRIVER");
 //			if (sSistemaOperativo.contains("Linux")) {
 //				System.setProperty("webdriver.chrome.driver", "/var/lib/drivers/chromedriver");
 //				options.setHeadless(true);

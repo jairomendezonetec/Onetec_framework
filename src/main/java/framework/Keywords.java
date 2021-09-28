@@ -33,11 +33,11 @@ public class Keywords {
 	}
 
 	/**
-	 * Este metodo realiza la acciÛn de pulsar sobre un elemento de la pantalla
+	 * Este m√©todo realiza la acci√≥n de pulsar sobre un elemento de la pantalla
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la b˙squeda del elemento.
+	 *                     contiene el tag y el valor de la b√∫squeda del elemento.
 	 * @throws Exception
 	 */
 	public static void pushOn(String[] arrayElement) throws Exception {
@@ -63,12 +63,12 @@ public class Keywords {
 	}
 
 	/**
-	 * Este metodo realiza la acciÛn de escribir sobre un elemento de la pantalla un
-	 * valor pasado por parametro
+	 * Este m√©todo realiza la acci√≥n de escribir sobre un elemento de la pantalla un
+	 * valor pasado por par√°metro
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la b˙squeda del elemento.
+	 *                     contiene el tag y el valor de la b√∫squeda del elemento.
 	 * @param text         Contiene el texto que debe ser introducido
 	 * @throws Exception
 	 */
@@ -96,12 +96,12 @@ public class Keywords {
 	}
 
 	/**
-	 * Este metodo recoge una propiedad(text, value, class...) concreta de un
+	 * Este m√©todo recoge una propiedad(text, value, class...) concreta de un
 	 * elemento
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la b˙squeda del elemento.
+	 *                     contiene el tag y el valor de la b√∫squeda del elemento.
 	 * @param propName     Contiene la propiedad que debe ser obtenida
 	 * @throws Exception
 	 */
@@ -131,12 +131,12 @@ public class Keywords {
 	}
 
 	/**
-	 * Este metodo verificara que aparece un texto concreto en un elemento de la
+	 * Este m√©todo verificar√° que aparece un texto concreto en un elemento de la
 	 * pantalla
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la b˙squeda del elemento.
+	 *                     contiene el tag y el valor de la b√∫squeda del elemento.
 	 * @param text         Contiene el texto a ser buscado en el elemento
 	 * @throws Exception
 	 */
@@ -166,11 +166,11 @@ public class Keywords {
 	}
 
 	/**
-	 * Este metodo verificara que aparece un texto que contiene el esperado
+	 * Este m√©todo verificar√° que aparece un texto que contiene el esperado
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la b˙squeda del elemento.
+	 *                     contiene el tag y el valor de la b√∫squeda del elemento.
 	 * @param text         Contiene el texto a ser buscado en el elemento
 	 * @throws Exception
 	 */
@@ -202,11 +202,11 @@ public class Keywords {
 	}
 
 	/**
-	 * Este metodo verificara que existe un elemento en pantalla
+	 * Este m√©todo verificar√° que existe un elemento en pantalla
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la b˙squeda del elemento.
+	 *                     contiene el tag y el valor de la b√∫squeda del elemento.
 	 * @param timeOut      Tiempo de espera hasta encontrar el elemento
 	 * @throws Exception
 	 */
@@ -228,12 +228,12 @@ public class Keywords {
 	}
 
 	/**
-	 * Este metodo verificara un elemento en pantalla. Fallando, en caso de no
+	 * Este m√©todo verificar√° un elemento en pantalla. Fallando, en caso de no
 	 * existir.
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la b˙squeda del elemento.
+	 *                     contiene el tag y el valor de la b√∫squeda del elemento.
 	 * @param timeOut      Tiempo de espera hasta encontrar el elemento
 	 * @throws Exception
 	 */
@@ -245,12 +245,12 @@ public class Keywords {
 	}
 
 	/**
-	 * Este metodo seleccionar· una opciÛn de un selector desplegable
+	 * Este m√©todo selecciona una opci√≥n de un selector desplegable
 	 * 
 	 * @author jairo
 	 * @param arrayElement Es un array con los datos para localizar el objeto. Este
-	 *                     contiene el tag y el valor de la b˙squeda del elemento.
-	 * @param timeOut      Tiempo de espera hasta encontrar el elemento
+	 *                     contiene el tag y el valor de la b√∫squeda del elemento.
+	 * @param options  Opciones para seleccionar
 	 * @throws Exception
 	 */
 	public static void selectOptions(String[] arrayElement, String... options) throws Exception {
@@ -287,10 +287,10 @@ public class Keywords {
 	}
 
 	/**
-	 * Parar la ejecuciÛn los segundos que se determinen. Ojo: se usa la clase
+	 * Parar la ejecuci√≥n los segundos que se determinen. Ojo: se usa la clase
 	 * Thread que puede lanzar excepciones.
 	 * 
-	 * @param El tiempo que se quiera parar la ejecuciÛn en segundos.
+	 * @param sec El tiempo que se quiera parar la ejecuci√≥n en segundos.
 	 * @author Jairo
 	 */
 	public static void waitSec(long sec) {
@@ -303,13 +303,13 @@ public class Keywords {
 	}
 
 	/**
-	 * Activa una espera explÌcita hasta que el elemento que se le pasa est·
-	 * presente en la p·gina.
+	 * Activa una espera expl√≠cita hasta que el elemento que se le pasa est√°
+	 * presente en la p√°gina.
 	 * 
-	 * @param Es un array que representa un atributo est·tico de la clase
+	 * @param arrayElement Es un array que representa un atributo est√°tico de la clase
 	 *           PageObject.
-	 * @param El tiempo en segundos que dura la espera.
-	 * @return El elemento por el que se est· esperando a que estÈ presente.
+	 * @param sec El tiempo en segundos que dura la espera.
+	 * @return El elemento por el que se est√° esperando a que est√° presente.
 	 * @author Jairo
 	 */
 
@@ -326,13 +326,13 @@ public class Keywords {
 	}
 
 	/**
-	 * Activa una espera explÌcita hasta que el elemento que se le pasa sea clicable
-	 * en la p·gina.
+	 * Activa una espera expl√≠cita hasta que el elemento que se le pasa sea clicable
+	 * en la p√°gina.
 	 * 
-	 * @param Es un array que representa un atributo est·tico de la clase
+	 * @param arrayElement Es un array que representa un atributo est√°tico de la clase
 	 *           PageObject.
-	 * @param El tiempo en segundos que dura la espera.
-	 * @return El elemento por el que se est· esperando a que estÈ presente.
+	 * @param sec El tiempo en segundos que dura la espera.
+	 * @return El elemento por el que se est√° esperando a que est√° presente.
 	 * @author Jairo
 	 */
 	public static WebElement waitToBeClickable(String[] arrayElement, long sec) {
@@ -343,13 +343,13 @@ public class Keywords {
 	}
 
 	/**
-	 * Activa una espera explÌcita hasta que el elemento que se le pasa sea visible
-	 * en la p·gina.
+	 * Activa una espera explicita hasta que el elemento que se le pasa sea visible
+	 * en la p√°gina.
 	 * 
-	 * @param Es un array que representa un atributo est·tico de la clase
+	 * @param arrayElement Es un array que representa un atributo est√°tico de la clase
 	 *           PageObject.
-	 * @param El tiempo en segundos que dura la espera.
-	 * @return El elemento por el que se est· esperando a que estÈ presente.
+	 * @param sec El tiempo en segundos que dura la espera.
+	 * @return El elemento por el que se est√° esperando a que est√° presente.
 	 * @author Jairo
 	 */
 	public static WebElement waitToBeVisible(String[] arrayElement, long sec) {
@@ -360,12 +360,12 @@ public class Keywords {
 	}
 
 	/**
-	 * Activa una espera explÌcita hasta que el elemento que se le pasa sea se
-	 * desvanezca en la p·gina.
+	 * Activa una espera expl√≠cita hasta que el elemento que se le pasa sea se
+	 * desvanezca en la p√°gina.
 	 * 
-	 * @param Es un array que representa un atributo est·tico de la clase
+	 * @param arrayElement Es un array que representa un atributo est√°tico de la clase
 	 *           PageObject.
-	 * @param El tiempo en segundos que dura la espera.
+	 * @param sec El tiempo en segundos que dura la espera.
 	 * @author Jairo
 	 * @throws ExecutionException
 	 */
@@ -375,33 +375,32 @@ public class Keywords {
 	}
 
 	/**
-	 * Este metodo almacena un dato para poder consultarlo cuando se necesite dentro
-	 * de la ejecucciÛn
+	 * Este m√©todo almacena un dato para poder consultarlo cuando se necesite dentro
+	 * de la ejecucci√≥n
 	 * 
 	 * @author jairo
 	 * @param key   Clave para localizar el dato
 	 * @param value Valor del dato
 	 */
-	public static void saveData(String key, String value) {
-		logger.debug("Recovering '" + value + "' on '" + key + "' ...");
+	public static void setData(String key, String value) {
+		logger.debug("Setting data with value =  '" + value + "' on key: '" + key + "' ...");
 		data.put(key, value);
 	}
 
 	/**
-	 * Este metodo recupera un dato guardado previamente
+	 * Este m√©todo recupera un dato guardado previamente
 	 * 
 	 * @author jairo
-	 * @param key   Clave para localizar el dato
-	 * @param value Valor del dato
+	 * @param key Clave para localizar el dato
 	 */
-	public static String recoverData(String key) {
-		logger.debug("Recovering data of : '" + key + "' ...");
+	public static String getData(String key) {
+		logger.debug("Getting data of : '" + key + "' ...");
 		return data.get(key);
 	}
 
 	/**
-	 * MÈtodo que poen a esperar al navegador hasta que la p·gina se carga por
-	 * completo y JavaScript notifica que asÌ es, efectivamente.
+	 * M√©todo que espera la carga completa de la p√°gina
+	 * completo y JavaScript notifica que as√≠ es, efectivamente.
 	 * 
 	 * @author Jairo
 	 */
